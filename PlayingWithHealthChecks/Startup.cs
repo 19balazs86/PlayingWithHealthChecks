@@ -16,7 +16,7 @@ namespace PlayingWithHealthChecks
   {
     public IConfiguration Configuration { get; }
 
-    private const bool _isEnableHealthChecksUI = false;
+    private static readonly bool _isEnableHealthChecksUI = false;
 
     public Startup(IConfiguration configuration)
     {
@@ -57,7 +57,7 @@ namespace PlayingWithHealthChecks
         app.UseDeveloperExceptionPage();
 
       // Use health checks
-      app.UseHealthChecks("/health", createHealthCheckOptions(_isEnableHealthChecksUI));
+      app.UseHealthChecks("/health", createHealthCheckOptions());
 
       if (_isEnableHealthChecksUI)
         app.UseHealthChecksUI(); // http://localhost:5000/healthchecks-ui
@@ -66,9 +66,9 @@ namespace PlayingWithHealthChecks
     }
 
     // Create 2 types of HealthCheckOptions depending on the isEnableHealthChecksUI.
-    private static HealthCheckOptions createHealthCheckOptions(bool isEnableHealthChecksUI)
+    private static HealthCheckOptions createHealthCheckOptions()
     {
-      if (isEnableHealthChecksUI)
+      if (_isEnableHealthChecksUI)
         return new HealthCheckOptions { Predicate = _ => true, ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse };
 
       return new HealthCheckOptions
