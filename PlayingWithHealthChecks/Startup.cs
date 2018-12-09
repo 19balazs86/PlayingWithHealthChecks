@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -26,17 +27,26 @@ namespace PlayingWithHealthChecks
     {
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+      // Install-Package Npgsql.EntityFrameworkCore.PostgreSQL
+      services.AddDbContext<DataBaseContext>(options
+        => options.UseNpgsql(Configuration.GetConnectionString("PostgreSQL")));
+
       // Health checks are created as transient objects by default.
       // If you want another lifecycle, health checks can be added manually like this:
       services.AddSingleton<RandomHealthCheck>();
 
-      // Health checks set-up.
+      // Add: Health checks.
       services
         .AddHealthChecks()
+        // Install-Package Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore
+        .AddDbContextCheck<DataBaseContext>()
+        // Install-Package AspNetCore.HealthChecks.Redis
         .AddRedis(Configuration.GetConnectionString("Redis"))
+        // Install-Package AspNetCore.HealthChecks.MySql
         .AddMySql(Configuration.GetConnectionString("MySQL"))
         .AddCheck<RandomHealthCheck>("random");
 
+      // Install-Package AspNetCore.HealthChecks.UI
       if (_isEnableHealthChecksUI)
         services.AddHealthChecksUI();
     }
