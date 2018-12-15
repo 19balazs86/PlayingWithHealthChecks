@@ -16,7 +16,7 @@ namespace PlayingWithHealthChecks
   {
     public IConfiguration Configuration { get; }
 
-    private static readonly bool _isEnableHealthChecksUI = false;
+    private static readonly bool _isEnableHealthChecksUI = true;
 
     public Startup(IConfiguration configuration)
     {
@@ -59,8 +59,10 @@ namespace PlayingWithHealthChecks
       // Use health checks
       app.UseHealthChecks("/health", createHealthCheckOptions());
 
-      if (_isEnableHealthChecksUI)
-        app.UseHealthChecksUI(); // http://localhost:5000/healthchecks-ui
+      if (_isEnableHealthChecksUI) // http://localhost:5000/healthchecks-ui
+        app.UseHealthChecksUI();
+      //app.UseHealthChecksUI(options => { options.ApiPath = "/health"; options.UIPath = "/healthchecks-ui"; });
+      // The GUI says: "Could not retrieve health checks data", because Status Code: 503 Service Unavailable
 
       app.UseMvc();
     }

@@ -7,6 +7,7 @@ Resources:
 - [HealthChecks packages](https://github.com/xabaril/AspNetCore.Diagnostics.HealthChecks "HealthChecks packages") a list of packages and information about the HealthCheckUI.
 - [Elmah blog post](https://blog.elmah.io/asp-net-core-2-2-health-checks-explained "Elmah blog post") to explain the health checks.
 - [Microsoft video](https://www.youtube.com/watch?v=_vw3hcnSA1Y&t=516 "Microsoft video") to introduce this new feature and give some tips to use liveness and readiness probes in Docker.
+- Scott Hanselman: [How to set up ASP.NET Core 2.2 Health Checks with BeatPulse.](https://www.hanselman.com/blog/HowToSetUpASPNETCore22HealthChecksWithBeatPulsesAspNetCoreDiagnosticsHealthChecks.aspx "How to set up ASP.NET Core 2.2 Health Checks with BeatPulse.")
 
 To use HealthCheckUI is totally optional. Usually, you have a centralised system, where you can monitor all your services. Also do not need this in Docker. 
 
