@@ -61,7 +61,7 @@ namespace PlayingWithHealthChecks
 
       if (_isEnableHealthChecksUI) // http://localhost:5000/healthchecks-ui
         app.UseHealthChecksUI();
-      //app.UseHealthChecksUI(options => { options.ApiPath = "/health"; options.UIPath = "/healthchecks-ui"; });
+        //app.UseHealthChecksUI(options => { options.ApiPath = "/health"; options.UIPath = "/healthchecks-ui"; });
       // The GUI says: "Could not retrieve health checks data", because Status Code: 503 Service Unavailable
 
       app.UseMvc();
