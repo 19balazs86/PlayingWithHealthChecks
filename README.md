@@ -5,6 +5,7 @@ This is a small .NET Core WebAPI application to try out the new health checks.
 Resources: 
 - [Microsoft official page](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-2.2 "Microsoft official page") has a tons of example and information about this topic.
 - [HealthChecks packages](https://github.com/xabaril/AspNetCore.Diagnostics.HealthChecks "HealthChecks packages") a list of packages and information about the HealthCheckUI.
+- [Telerik blog](https://www.telerik.com/blogs/health-checks-in-aspnet-core "Telerik blog"): Health Checks in ASP.NET Core.
 - [Elmah blog post](https://blog.elmah.io/asp-net-core-2-2-health-checks-explained "Elmah blog post") to explain the health checks.
 - [Microsoft video](https://www.youtube.com/watch?v=_vw3hcnSA1Y&t=516 "Microsoft video") to introduce this new feature and give some tips to use liveness and readiness probes in Docker.
 - Scott Hanselman: [How to set up ASP.NET Core 2.2 Health Checks with BeatPulse.](https://www.hanselman.com/blog/HowToSetUpASPNETCore22HealthChecksWithBeatPulsesAspNetCoreDiagnosticsHealthChecks.aspx "How to set up ASP.NET Core 2.2 Health Checks with BeatPulse.")
