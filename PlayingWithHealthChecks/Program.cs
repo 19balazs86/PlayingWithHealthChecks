@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace PlayingWithHealthChecks
@@ -8,17 +8,22 @@ namespace PlayingWithHealthChecks
   {
     public static void Main(string[] args)
     {
-      CreateWebHostBuilder(args).Build().Run();
+      CreateHostBuilder(args).Build().Run();
     }
 
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-      WebHost.CreateDefaultBuilder(args)
-        .UseStartup<Startup>()
-        .ConfigureLogging((hostingContext, logging) =>
-        {
-          logging.ClearProviders();
-          logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-          logging.AddConsole();
-        });
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+      return Host
+        .CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webHostBuilder =>
+          webHostBuilder
+            .UseStartup<Startup>()
+            .ConfigureLogging((hostingContext, logging) =>
+            {
+              logging.ClearProviders();
+              logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+              logging.AddConsole();
+            }));
+    }
   }
 }
