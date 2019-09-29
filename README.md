@@ -2,8 +2,10 @@
 
 This is a small .NET Core WebAPI application to try out the new health checks.
 
+[Separate branch](https://github.com/19balazs86/PlayingWithHealthChecks/tree/netcoreapp2.2) with the .NET Core 2.2 version.
+
 Resources: 
-- [Microsoft official page](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-2.2) has a tons of example and information about this topic.
+- [Microsoft official page](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-3.0) has a tons of example and information about this topic.
 - [HealthChecks packages](https://github.com/xabaril/AspNetCore.Diagnostics.HealthChecks) a list of packages and information about the HealthCheckUI.
 - [Telerik blog](https://www.telerik.com/blogs/health-checks-in-aspnet-core): Health Checks in ASP.NET Core.
 - [Elmah blog post](https://blog.elmah.io/asp-net-core-2-2-health-checks-explained) to explain the health checks.

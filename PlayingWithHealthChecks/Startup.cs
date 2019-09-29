@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
 namespace PlayingWithHealthChecks
@@ -25,7 +25,7 @@ namespace PlayingWithHealthChecks
 
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+      //services.AddControllers();
 
       // Install-Package Npgsql.EntityFrameworkCore.PostgreSQL
       services.AddDbContext<DataBaseContext>(options
@@ -51,20 +51,22 @@ namespace PlayingWithHealthChecks
         services.AddHealthChecksUI();
     }
 
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       if (env.IsDevelopment())
         app.UseDeveloperExceptionPage();
 
-      // Use health checks
-      app.UseHealthChecks("/health", createHealthCheckOptions());
-
       if (_isEnableHealthChecksUI) // http://localhost:5000/healthchecks-ui
         app.UseHealthChecksUI();
-        //app.UseHealthChecksUI(options => { options.ApiPath = "/health"; options.UIPath = "/healthchecks-ui"; });
-      // The GUI says: "Could not retrieve health checks data", because Status Code: 503 Service Unavailable
 
-      app.UseMvc();
+      app.UseRouting();
+
+      app.UseEndpoints(endpoints =>
+      {
+        //endpoints.MapControllers();
+        endpoints.MapHealthChecks("/health", createHealthCheckOptions());
+          //.RequireAuthorization(new AuthorizeAttribute() { Roles = "admin", });
+      });
     }
 
     // Create 2 types of HealthCheckOptions depending on the isEnableHealthChecksUI.
