@@ -43,4 +43,4 @@ public void ConfigureServices(IServiceCollection services)
 ##### Setup some portable servers on Windows (no need installation).
 - Redis: Description in my [PlayingWithDistributedLock](https://github.com/19balazs86/PlayingWithDistributedLock#setup-a-redis-server-locally-on-windows) repository.
 - MySql: [Wiki page.](http://wiki.uniformserver.com/index.php/Mini_Servers:_MySQL_5.0.67_Portable#Support_files)
-- PostgreSQL: [PostgreSQL portable page.](https://gareth.flowers/postgresql-portable)
+- Github: garethflowers / postgresql-portable / [releases](https://github.com/garethflowers/postgresql-portable/releases) *(database, user, password: postgres)*
