@@ -6,6 +6,7 @@ This is a small WebAPI application to try out the health checks feature.
 
 Resources: 
 - [Health checks in ASP.NET](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks) 📚 - Lots of examples
+- [Health checks for monitoring your applications](https://www.milanjovanovic.tech/blog/health-checks-in-asp-net-core) 📓*Milan*
 - [Collection of packages](https://github.com/xabaril/AspNetCore.Diagnostics.HealthChecks) 👤 - A list of packages and lots of information, HealthCheckUI
 - [Prepare you application to be monitored by Kubernetes](https://dev.to/gkarwchan/prepare-net-core-microservice-to-be-monitored-by-kubernetes-4pgn) 📓*DEV.to / Ghassan Karwchan*
 
