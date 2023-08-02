@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace PlayingWithHealthChecks
+namespace PlayingWithHealthChecks;
+
+public sealed class DataBaseContext : DbContext
 {
-  public class DataBaseContext : DbContext
-  {
     public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
     {
 
     }
-  }
 }
