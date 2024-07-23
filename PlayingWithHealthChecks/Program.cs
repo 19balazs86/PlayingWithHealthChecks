@@ -29,6 +29,7 @@ public static class Program
             services.AddHealthChecks()
                 //// Install-Package Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore
                 //.AddDbContextCheck<DataBaseContext>()
+                //.AddDbContextCheck<DataBaseContext>("db-check-users", customTestQuery: (db, ct) => db.Users.AnyAsync(ct))
                 //// Install-Package AspNetCore.HealthChecks.Redis
                 //.AddRedis(configuration.GetConnectionString("Redis")!)
                 //// Install-Package AspNetCore.HealthChecks.MySql
