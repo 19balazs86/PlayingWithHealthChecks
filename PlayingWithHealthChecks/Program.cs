@@ -12,10 +12,9 @@ public static class Program
 
     public static void Main(string[] args)
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
-        var services      = builder.Services;
-        var configuration = builder.Configuration;
+        WebApplicationBuilder builder       = WebApplication.CreateBuilder(args);
+        IServiceCollection    services      = builder.Services;
+        ConfigurationManager  configuration = builder.Configuration;
 
         // Add services to the container
         {
@@ -38,7 +37,9 @@ public static class Program
 
             // Install-Package AspNetCore.HealthChecks.UI
             if (_isEnableHealthChecksUI)
+            {
                 services.AddHealthChecksUI();
+            }
         }
 
         WebApplication app = builder.Build();
@@ -47,8 +48,10 @@ public static class Program
         {
             app.UseDeveloperExceptionPage();
 
-            if (_isEnableHealthChecksUI) // http://localhost:5000/healthchecks-ui
-                app.UseHealthChecksUI();
+            if (_isEnableHealthChecksUI)
+            {
+                app.UseHealthChecksUI(); // http://localhost:5000/healthchecks-ui
+            }
 
             app.MapHealthChecks("/health", createHealthCheckOptions());
         }
@@ -59,21 +62,20 @@ public static class Program
     // Create 2 types of HealthCheckOptions depending on the isEnableHealthChecksUI.
     private static HealthCheckOptions createHealthCheckOptions()
     {
-        if (_isEnableHealthChecksUI)
-            return new HealthCheckOptions { Predicate = _ => true, ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse };
-
-        return new HealthCheckOptions { ResponseWriter = responseWriter };
+        return _isEnableHealthChecksUI
+            ? new HealthCheckOptions { Predicate = _ => true, ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse }
+            : new HealthCheckOptions { ResponseWriter = jsonResponseWriter };
     }
 
     // Without this custom writer, the default response is just a text of Healthy/Unhealthy
-    private static async Task responseWriter(HttpContext httpContext, HealthReport healthReport)
+    private static async Task jsonResponseWriter(HttpContext httpContext, HealthReport healthReport)
     {
         httpContext.Response.ContentType = MediaTypeNames.Application.Json;
 
         var reportResponse = new
         {
-            Status = healthReport.Status.ToString(),
-            Errors = healthReport.Entries.Select(e => new { Name = e.Key, Value = e.Value.Status.ToString(), e.Value.Description })
+            Status  = healthReport.Status.ToString(),
+            Entries = healthReport.Entries.Select(e => new { Name = e.Key, Status = e.Value.Status.ToString(), e.Value.Description })
         };
 
         await JsonSerializer.SerializeAsync(httpContext.Response.Body, reportResponse);
